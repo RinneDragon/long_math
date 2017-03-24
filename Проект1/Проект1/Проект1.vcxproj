@@ -115,6 +115,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="LNum.cpp" />
     <ClCompile Include="Polynome.cpp" />
+    <ClCompile Include="RNum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -122,6 +123,7 @@
   <ItemGroup>
     <ClInclude Include="ILNum.h" />
     <ClInclude Include="LNum.h" />
+    <ClInclude Include="Ordinal.h" />
     <ClInclude Include="Polynome.h" />
     <ClInclude Include="RNum.h" />
   </ItemGroup>
