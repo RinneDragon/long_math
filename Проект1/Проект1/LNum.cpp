@@ -68,11 +68,10 @@ Ordinal COM_NN_D(LNum& num1, LNum& num2)
 	int l2 = num2.len();
 	if (l1>l2) return Ordinal::GT;
 	if (l1<l2) return Ordinal::LT;
-	--l1;
-	while ((l1>-1) && (num1.digits[l1] == num2.digits[l1])) --l1;
+	while (--l1 + 1 && num1.digits[l1] == num2.digits[l1]);
 	if (l1 == -1) return Ordinal::EQ;
 	if (num1.digits[l1]>num2.digits[l1]) return Ordinal::GT;
-	 return Ordinal::LT;
+	return Ordinal::LT;
 }
 
 LNum ADD_1N_N(LNum& a) {
