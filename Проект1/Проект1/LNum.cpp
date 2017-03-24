@@ -143,3 +143,16 @@ LNum SUB_NN_N(LNum& a, LNum& b) {
 	}
 	return c;
 }
+// N-7
+LNum MUL_Nk_N(LNum& num, int k)
+{
+    for (int i = 0; i < k; ++i)
+        num.digits.insert(num.digits.begin(), 0);
+    return num;
+}
+
+// N-13
+LNum LCM_NN_N(LNum& a, LNum& b)
+{
+    return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
+}
