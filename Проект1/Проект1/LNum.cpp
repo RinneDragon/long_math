@@ -73,7 +73,8 @@ Ordinal COM_NN_D(LNum& num1, LNum& num2)
 	if (num1.digits[l1]>num2.digits[l1]) return Ordinal::GT;
 	return Ordinal::LT;
 }
-
+// N-2 выше
+// N-3
 LNum ADD_1N_N(LNum& a) {
 	LNum b;
 	int l = a.len();
@@ -89,7 +90,7 @@ LNum ADD_1N_N(LNum& a) {
 		b.digits.push_back(1);
 	return b;
 }
-
+// N-4
 LNum ADD_NN_N(LNum& a, LNum& b){
 	LNum c;
 	int l1 = a.len();
@@ -108,4 +109,37 @@ LNum ADD_NN_N(LNum& a, LNum& b){
 		c.digits.push_back(1);
 	return c;
 }
-
+// N-5
+LNum SUB_NN_N(LNum& a, LNum& b) {
+	LNum c;
+	if (COM_NN_D(a, b) == Ordinal::LT) {
+		LNum t = a;
+		a = b;
+		b = t;
+	}
+	int l1 = a.len();
+	int l2 = b.len();
+	int minLen = l1 > l2 ? l2 : l1;
+	int maxLen = l1 > l2 ? l1 : l2;
+	c.digits.reserve(maxLen);
+	int temp;
+	bool overflow = false;
+	for (int i = 0; i < minLen; ++i) {
+		temp = a.digits[i] - b.digits[i] - overflow;
+		if (temp < 0) {
+			temp += 10;
+			c.digits.push_back(temp);
+			overflow = true;
+		} else overflow = false;
+	}
+	for (int i = minLen; i < maxLen; ++i) {
+		temp = a.digits[i] - overflow;
+		if (temp < 0) {
+			temp += 10;
+			c.digits.push_back(temp);
+			overflow = true;
+		}
+		else overflow = false;
+	}
+	return c;
+}
