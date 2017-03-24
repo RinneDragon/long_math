@@ -61,6 +61,22 @@ void LNum::setDigits(string& str)
 		digits.push_back(str[i] - '0');
 }
 
+LNum ADD_1N_N(LNum& a) {
+	LNum b;
+	int l = a.len();
+	b.digits.reserve(l + 1);
+	bool overflow = true;
+	for (int i = 0; i < l; ++i)
+	{
+		b.digits.push_back(a.digits[i] + overflow);
+		overflow = b.digits[i] > 9;
+		b.digits[i] %= 10;
+	}
+	if (overflow)
+		b.digits.push_back(1);
+	return b;
+}
+
 LNum ADD_NN_N(LNum& a, LNum& b){
 	LNum c;
 	int l1 = a.len();
