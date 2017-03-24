@@ -54,7 +54,7 @@ int LNum::len()
 	return digits.size();
 }
 
-void LNum::setDigits(string& str) 
+void LNum::setDigits(string str) 
 {
 	digits.reserve(str.length());
 	for (int i = str.length() - 1; i >= 0; --i)
