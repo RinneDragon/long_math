@@ -40,6 +40,50 @@ void LNum::setDigits(string& str)
 	for (int i = str.length() - 1; i >= 0; --i)
 		digits.push_back(str[i] - '0');
 }
+//N-1
+Ordinal COM_NN_D(LNum& num1, LNum& num2)
+{
+	int l1 = num1.length();
+	int l2 = num2.length();
+	if (l1>l2) return Ordinal::GT;
+	if (l1<l2) return Ordinal::LT;
+	--l1;
+	while ((l1>-1) && (num1.digits[l1] == num2.digits[l1])) --l1;
+	if (l1 == -1) return Ordinal::EQ;
+	if (num1.digits[l1]>num2.digits[l1]) return Ordinal::GT;
+	if (num1.digits[l1]<num2.digits[l1]) return Ordinal::LT;
+}
+
+//N-3
+LNum ADD_1N_N(LNum& numb)
+{
+	numb.digits[1] += 1;
+	if (numb.digits[1] == 10)
+	{
+		numb.digits[1] = 0;
+		bool overflow = true;
+	}
+	int i = 0;
+	while ((overflow = true) && (i<(numb.length() - 1)))
+	{
+		i++;
+		numb.digits[i] += 1;
+		if (numb.digits[i]<10)
+		{
+			overflow = false;
+		}
+		else
+		{
+			numb.digits[i] = 0;
+		}
+
+	}
+	if (overflow = true)
+	{
+		numb.bush_back(1);
+	}
+	return numb;
+}
 
 LNum ADD_NN_N(LNum& a, LNum& b){
 	LNum c;
@@ -59,3 +103,4 @@ LNum ADD_NN_N(LNum& a, LNum& b){
 		c.digits.push_back(1);
 	return c;
 }
+
