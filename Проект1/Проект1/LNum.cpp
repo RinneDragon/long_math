@@ -40,15 +40,7 @@ bool operator!=(LNum& num, int n){
 bool operator!=(int n, LNum& num){
    return !operator==(num, n); 
 }	 
-	 
-bool NZER_N_B(LNum& num)
-{
-	for (int i = 0; i < num.len(); ++i)
-		if (num.digits[i])
-			return false;
-	return true;
-}
-
+	
 int LNum::len()
 {
 	return digits.size();
@@ -60,18 +52,27 @@ void LNum::setDigits(string str)
 	for (int i = str.length() - 1; i >= 0; --i)
 		digits.push_back(str[i] - '0');
 }
+
+bool NZER_N_B(LNum& num)
+{
+	for (int i = 0; i < num.len(); ++i)
+		if (num.digits[i])
+			return false;
+	return true;
+}
+
 //N-1
 Ordinal COM_NN_D(LNum& num1, LNum& num2)
 {
-	int l1 = num1.length();
-	int l2 = num2.length();
+	int l1 = num1.len();
+	int l2 = num2.len();
 	if (l1>l2) return Ordinal::GT;
 	if (l1<l2) return Ordinal::LT;
 	--l1;
 	while ((l1>-1) && (num1.digits[l1] == num2.digits[l1])) --l1;
 	if (l1 == -1) return Ordinal::EQ;
 	if (num1.digits[l1]>num2.digits[l1]) return Ordinal::GT;
-	if (num1.digits[l1]<num2.digits[l1]) return Ordinal::LT;
+	 return Ordinal::LT;
 }
 
 LNum ADD_1N_N(LNum& a) {
