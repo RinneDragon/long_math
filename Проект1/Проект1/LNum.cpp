@@ -128,18 +128,18 @@ LNum SUB_NN_N(LNum& a, LNum& b) {
 		temp = a.digits[i] - b.digits[i] - overflow;
 		if (temp < 0) {
 			temp += 10;
-			c.digits.push_back(temp);
 			overflow = true;
 		} else overflow = false;
+		c.digits.push_back(temp);
 	}
 	for (int i = minLen; i < maxLen; ++i) {
 		temp = a.digits[i] - overflow;
 		if (temp < 0) {
 			temp += 10;
-			c.digits.push_back(temp);
 			overflow = true;
 		}
 		else overflow = false;
+		c.digits.push_back(temp);
 	}
 	return c;
 }
