@@ -9,7 +9,7 @@ using namespace std;
 struct LNum {
     // Метод len, возвращающий длину числа
     int len();
-    void setDigits(string& str);
+    void setDigits(string str);
     // Значение числа хранится перевёрнутым. (123 хранится как 3 -> [0], 2 -> [1], 1 -> [2])
     vector<int> digits;
 };
