@@ -9,7 +9,7 @@ using namespace std;
 
 struct ILNum {
 	int len();
-	void setDigits(string& str);
+	void setDigits(string str);
     // Отрицательно ли число
 	bool minus;
     // Натуральная часть числа
