@@ -19,7 +19,7 @@ istream& operator>>(istream& is, RNum& ex)
     int n = s.find('/', 0);
     s1 = s.substr(0, n);
     s2 = (n != -1 ? s.substr(n + 1, s.length() - n) : "1");
-    ex.num.setDigits(s1);
+    ex.num.nPart.setDigits(s1);
     ex.den.setDigits(s2);
     return is;
 }
