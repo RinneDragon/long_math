@@ -74,37 +74,6 @@ Ordinal COM_NN_D(LNum& num1, LNum& num2)
 	if (num1.digits[l1]<num2.digits[l1]) return Ordinal::LT;
 }
 
-//N-3
-LNum ADD_1N_N(LNum& numb)
-{
-	numb.digits[1] += 1;
-	if (numb.digits[1] == 10)
-	{
-		numb.digits[1] = 0;
-		bool overflow = true;
-	}
-	int i = 0;
-	while ((overflow = true) && (i<(numb.length() - 1)))
-	{
-		i++;
-		numb.digits[i] += 1;
-		if (numb.digits[i]<10)
-		{
-			overflow = false;
-		}
-		else
-		{
-			numb.digits[i] = 0;
-		}
-
-	}
-	if (overflow = true)
-	{
-		numb.bush_back(1);
-	}
-	return numb;
-}
-
 LNum ADD_1N_N(LNum& a) {
 	LNum b;
 	int l = a.len();
