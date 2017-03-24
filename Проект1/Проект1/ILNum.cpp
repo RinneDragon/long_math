@@ -21,7 +21,7 @@ istream& operator>>(istream& is, ILNum& a)
     return is;
 }
 
-void ILNum::setDigits(string& str) 
+void ILNum::setDigits(string str) 
 {
     minus = str[0] == '-';
     nPart.digits.reserve(str.length() - minus);
