@@ -77,5 +77,5 @@ ILNum ADD_ZZ_Z(ILNum& a, ILNum& b) {
 		if (COM_NN_D(a.nPart, b.nPart) == Ordinal::EQ)
 			return{ false, { vector<int>({ 0 }) } };
 	}
-	else return { a.minus, ADD_NN_N(a.nPart,b.nPart) }
+	else return{ a.minus, ADD_NN_N(a.nPart,b.nPart) };
 }
