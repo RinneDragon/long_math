@@ -38,3 +38,10 @@ int ILNum::len()
 LNum ABS_Z_N(ILNum& a) {
 	return a.nPart;
 }
+
+//Z-2
+int POZ_Z_D(ILNum& a) {
+	if (!NZER_N_B(a.nPart)) return 0;
+	else if (a.minus == true) return 1;
+	else return 2;
+}
