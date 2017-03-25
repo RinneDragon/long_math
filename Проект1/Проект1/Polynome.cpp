@@ -41,3 +41,31 @@ istream& operator>>(istream& is, Polynome& pl)
 	reverse(pl.coefficients.begin(), pl.coefficients.end());
 	return is;
 }
+
+// P-4
+Polynome MUL_Pxk_P(Polynome& pol, int k)
+{
+    // Why would you?
+    if (k == 0) return pol;
+    // Making zero as it is needed in 2 branches
+    LNum Lnzero = { vector<int>({ 1 }) };
+    ILNum ILzero = { false, vector<int>({ 0 }) };
+    RNum Rzero = { ILzero, Lnzero };
+    // Non-const links are dirty
+    auto res = pol;
+    if (k >  0)
+    {
+        // Shifting left
+        while (k-- > 0) res.coefficients.insert(res.coefficients.begin(), Rzero);
+    }
+    else
+    {
+        // This branch eats lesser coefs
+        if (pol.coefficients.size() == -k)
+            // No more pol
+            res = { vector<RNum>({ Rzero }) };
+        else
+            res.coefficients.erase(res.coefficients.begin(), res.coefficients.begin() + -k);
+    }
+    return res;
+}
