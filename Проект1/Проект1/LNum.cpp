@@ -61,6 +61,16 @@ bool NZER_N_B(LNum& num)
 	return true;
 }
 
+void clearZero(LNum& num) {
+	int i = num.len()-1;
+	int dig = num.digits[i];
+	while (dig==0)
+	{
+		num.digits.erase(num.digits.begin()+i);
+		dig = num.digits[--i];
+	}
+}
+
 //N-1
 Ordinal COM_NN_D(LNum& num1, LNum& num2)
 {
@@ -141,5 +151,6 @@ LNum SUB_NN_N(LNum& a, LNum& b) {
 		else overflow = false;
 		c.digits.push_back(temp);
 	}
+	clearZero(c);
 	return c;
 }
