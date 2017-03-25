@@ -174,6 +174,16 @@ LNum MUL_Nk_N(LNum& num, int k)
     return num;
 }
 
+// N-9
+LNum SUB_NDN_N(LNum& left, LNum& right, int dig)
+{
+    LNum subbed = MUL_ND_N(right, dig);
+    if (COM_NN_D(left, subbed) == Ordinal::GT)
+        return SUB_NN_N(left, subbed);
+    LNum zero = { vector<int>({ 0 }) };
+    return zero;
+}
+
 // N-13
 //LNum LCM_NN_N(LNum& a, LNum& b)
 //{
