@@ -60,3 +60,8 @@ ILNum TRANS_N_Z(LNum& num)
     ILNum res = { false , num };
     return res;
 }
+
+//Z-5
+LNum TRANS_Z_N(ILNum& num) {
+	return num.nPart;
+}
