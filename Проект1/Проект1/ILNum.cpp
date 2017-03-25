@@ -45,3 +45,11 @@ int POZ_Z_D(ILNum& a) {
 	else if (a.minus == true) return 1;
 	else return 2;
 }
+
+//Z-3
+ILNum MUL_ZM_Z(ILNum& a) {
+	ILNum c;
+	c = a;
+	c.minus = !a.minus;
+	return c;
+}
