@@ -62,13 +62,8 @@ bool NZER_N_B(LNum& num)
 }
 
 void clearZero(LNum& num) {
-	int i = num.len()-1;
-	int dig = num.digits[i];
-	while (dig==0)
-	{
-		num.digits.erase(num.digits.begin()+i);
-		dig = num.digits[--i];
-	}
+	while (num.len() > 1 && !num.digits[num.len() - 1])
+		num.digits.pop_back();
 }
 
 //N-1
@@ -159,15 +154,14 @@ LNum MUL_ND_N(LNum& a, int b) {
 	LNum c;
 	int l = a.len();
 	c.digits.reserve(l + 1);
-	int overflow = 0;
-	div_t divresult;
-	for (int i = 0; i < l; ++i) {
-		divresult = div(a.digits[i] * b, 10);
-		c.digits.push_back(divresult.rem);
-		overflow = divresult.quot;
+	c.digits.push_back(0);
+	if (!b) return c;
+	for (int i = 0; i < l; ++i)
+	{
+		int res = a.digits[i] * b + c.digits[i];
+		c.digits[i] = res % 10;
+		c.digits.push_back(res / 10);
 	}
-	if (overflow)
-		c.digits.push_back(overflow);
 	clearZero(c);
 	return c;
 }
