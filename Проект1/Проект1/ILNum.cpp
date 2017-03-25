@@ -53,3 +53,10 @@ ILNum MUL_ZM_Z(ILNum& a) {
 	c.minus = !a.minus;
 	return c;
 }
+
+// Z-4
+ILNum TRANS_N_Z(LNum& num)
+{
+    ILNum res = { false , num };
+    return res;
+}
