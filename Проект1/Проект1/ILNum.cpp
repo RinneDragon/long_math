@@ -57,8 +57,7 @@ ILNum MUL_ZM_Z(ILNum& a) {
 // Z-4
 ILNum TRANS_N_Z(LNum& num)
 {
-    ILNum res = { false , num };
-    return res;
+    return { false , num };
 }
 
 //Z-5
