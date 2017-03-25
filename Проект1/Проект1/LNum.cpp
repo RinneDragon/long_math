@@ -154,6 +154,24 @@ LNum SUB_NN_N(LNum& a, LNum& b) {
 	clearZero(c);
 	return c;
 }
+// N-6
+LNum MUL_ND_N(LNum& a, int b) {
+	LNum c;
+	int l = a.len();
+	c.digits.reserve(l + 1);
+	int overflow = 0;
+	div_t divresult;
+	for (int i = 0; i < l; ++i) {
+		divresult = div(a.digits[i] * b, 10);
+		c.digits.push_back(divresult.rem);
+		overflow = divresult.quot;
+	}
+	if (overflow)
+		c.digits.push_back(overflow);
+	clearZero(c);
+	return c;
+}
+
 // N-7
 LNum MUL_Nk_N(LNum& num, int k)
 {
@@ -163,7 +181,7 @@ LNum MUL_Nk_N(LNum& num, int k)
 }
 
 // N-13
-LNum LCM_NN_N(LNum& a, LNum& b)
-{
-    return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
-}
+//LNum LCM_NN_N(LNum& a, LNum& b)
+//{
+//    return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
+//}

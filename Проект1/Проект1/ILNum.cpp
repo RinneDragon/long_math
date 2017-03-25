@@ -33,3 +33,8 @@ int ILNum::len()
 {
     return nPart.len();
 }
+
+//Z-1
+LNum ABS_Z_N(ILNum& a) {
+	return a.nPart;
+}
