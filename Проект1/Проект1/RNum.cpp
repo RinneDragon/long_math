@@ -36,8 +36,18 @@ istream& operator>>(istream& is, RNum& ex)
 bool INT_Q_B(RNum& num) {
 	return num.den.digits == vector<int>({ 1 });
 }
-/*
+
 //Q-3
+RNum TRANS_Z_Q(ILNum& num) {
+	return{ num, { vector<int>({ 1 }) } };
+}
+
+//Q-4
+ILNum TRANS_Q_Z(RNum& num) {
+	return num.num;
+}
+/*
+
 RNum DIV_QQ_Q(RNum& numb1, RNum& numb2) // функция деления дробей MUL_ZZ_Z MUL_NN_N
 {
 	return RED_Q_Q( { {numb1.num.minus^numb2.num.minus, {MUL_NN_N(numb1.num.nPart, numb2.den)} } , {MUL_NN_N(numb1.den, numb2.num.nPart)} });
