@@ -49,14 +49,18 @@ ILNum TRANS_Q_Z(RNum& num) {
 
 /*
 //Q-5
-RNum ADD_QQ_Q(RNum& numb1, RNum& numb2) //сложение дробей LCM_NN_N MUL_ZZ_Z ADD_ZZ_Z DIV_
+RNum ADD_QQ_Q(RNum& a, RNum& b) //сложение дробей LCM_NN_N MUL_ZZ_Z ADD_ZZ_Z
 {
-	RNum numb3;
-	LNum numb1_2 = DIV_NN_N(LCM_NN_N(numb1.den, numb2.den), numb1.den);
-	LNum numb2_2 = DIV_NN_N(LCM_NN_N(numb1.den, numb2.den), numb2.den);
-	numb3.den = LCM_NN_N(numb1.den, numb2.den);
-	numb3.num = ADD_ZZ_Z(MUL_ZZ_Z(numb1.num, numb1_2), MUL_ZZ_Z(numb2.num, numb1_2));
-	return numb3;
+	LNum numb1_2 = DIV_NN_N(LCM_NN_N(a.den, b.den), a.den);
+	LNum numb2_2 = DIV_NN_N(LCM_NN_N(a.den, b.den), b.den);
+	return {{ADD_ZZ_Z(MUL_ZZ_Z(a.num, numb1_2), MUL_ZZ_Z(b.num, numb1_2))},{LCM_NN_N(a.den, b.den)}};
+}
+*/
+/*
+//Q-6
+RNum SUB_QQ_Q(RNum& a, RNum& b) //вычитание дробей LCM_NN_N MUL_ZZ_Z SUB_ZZ_Z 
+{
+	return {{false,{ vector<int>({ 0 }) }},{ vector<int>({ 1 }) }};
 }
 */
 /*
