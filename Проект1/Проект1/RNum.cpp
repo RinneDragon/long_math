@@ -30,8 +30,14 @@ istream& operator>>(istream& is, RNum& ex)
 	shortNum.den = DIV_NN_N(numb.den, NOD);
 	shortNum.num = DIV_ZZ_Z(numb.num, NOD);
 	return shortNum;
+}*/
+
+//Q-2
+bool INT_Q_B(RNum& num) {
+	return num.den.digits == vector<int>({ 1 });
 }
 
+/*
 RNum DIV_QQ_Q(RNum& numb1, RNum& numb2) // функция деления дробей MUL_ZZ_Z MUL_NN_N
 {
 	RNum numb3;
