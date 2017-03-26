@@ -46,14 +46,9 @@ RNum TRANS_Z_Q(ILNum& num) {
 ILNum TRANS_Q_Z(RNum& num) {
 	return num.num;
 }
-/*
 
-RNum DIV_QQ_Q(RNum& numb1, RNum& numb2) // функция деления дробей MUL_ZZ_Z MUL_NN_N
-{
-	return RED_Q_Q( { {numb1.num.minus^numb2.num.minus, {MUL_NN_N(numb1.num.nPart, numb2.den)} } , {MUL_NN_N(numb1.den, numb2.num.nPart)} });
-}
-*/
 /*
+//Q-5
 RNum ADD_QQ_Q(RNum& numb1, RNum& numb2) //сложение дробей LCM_NN_N MUL_ZZ_Z ADD_ZZ_Z DIV_
 {
 	RNum numb3;
@@ -63,10 +58,11 @@ RNum ADD_QQ_Q(RNum& numb1, RNum& numb2) //сложение дробей LCM_NN_N
 	numb3.num = ADD_ZZ_Z(MUL_ZZ_Z(numb1.num, numb1_2), MUL_ZZ_Z(numb2.num, numb1_2));
 	return numb3;
 }
-RNum DIV_QQ_Q(RNum& a, RNum& b){
-    RNum c;
-    c.num.minus = a.num.minus ^ b.num.minus;
-    c.num.nPart = MUL_NN_N(a.num.nPart, b.den);
-    c.den = MUL_NN_N(a.den, b.num.nPart);
-    return c;
-}*/
+*/
+/*
+//Q-8
+RNum DIV_QQ_Q(RNum& a, RNum& b) // функция деления дробей MUL_ZZ_Z MUL_NN_N
+{
+return RED_Q_Q( { {a.num.minus^b.num.minus, {MUL_NN_N(a.num.nPart, b.den)} } , {MUL_NN_N(a.den, b.num.nPart)} });
+}
+*/
