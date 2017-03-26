@@ -184,7 +184,7 @@ LNum SUB_NDN_N(LNum& left, LNum& right, int dig)
     return zero;
 }
 
-// N-13
+// N-14
 //LNum LCM_NN_N(LNum& a, LNum& b)
 //{
 //    return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
