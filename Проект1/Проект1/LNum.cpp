@@ -169,9 +169,24 @@ LNum MUL_ND_N(LNum& a, int b) {
 // N-7
 LNum MUL_Nk_N(LNum& num, int k)
 {
+    LNum res = num;
     for (int i = 0; i < k; ++i)
-        num.digits.insert(num.digits.begin(), 0);
-    return num;
+        res.digits.insert(res.digits.begin(), 0);
+    return res;
+}
+
+// N-8
+LNum MUL_NN_N(LNum& left, LNum& right)
+{
+    LNum res = { vector<int>({ 0 }) };
+    for (auto i = 0; i < right.len(); ++i)
+    {
+        // This one is pure so no copies
+        LNum mul_res = MUL_ND_N(left, right.digits[i]);
+        mul_res = MUL_Nk_N(mul_res, i);
+        res = ADD_NN_N(res, mul_res);
+    }
+    return res;
 }
 
 // N-9
