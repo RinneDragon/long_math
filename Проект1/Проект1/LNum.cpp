@@ -169,9 +169,10 @@ LNum MUL_ND_N(LNum& a, int b) {
 // N-7
 LNum MUL_Nk_N(LNum& num, int k)
 {
+    LNum res = num;
     for (int i = 0; i < k; ++i)
-        num.digits.insert(num.digits.begin(), 0);
-    return num;
+        res.digits.insert(res.digits.begin(), 0);
+    return res;
 }
 
 // N-9
