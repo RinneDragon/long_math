@@ -46,19 +46,16 @@ int LNum::len()
 	return digits.size();
 }
 
+int LNum::len() const
+{
+    return digits.size();
+}
+
 void LNum::setDigits(string str) 
 {
 	digits.reserve(str.length());
 	for (int i = str.length() - 1; i >= 0; --i)
 		digits.push_back(str[i] - '0');
-}
-
-bool NZER_N_B(LNum& num)
-{
-	for (int i = 0; i < num.len(); ++i)
-		if (num.digits[i])
-			return false;
-	return true;
 }
 
 void clearZero(LNum& num) {
@@ -67,7 +64,7 @@ void clearZero(LNum& num) {
 }
 
 //N-1
-Ordinal COM_NN_D(LNum& num1, LNum& num2)
+Ordinal COM_NN_D(LNum const& num1, LNum const& num2)
 {
 	int l1 = num1.len();
 	int l2 = num2.len();
@@ -78,9 +75,18 @@ Ordinal COM_NN_D(LNum& num1, LNum& num2)
 	if (num1.digits[l1]>num2.digits[l1]) return Ordinal::GT;
 	return Ordinal::LT;
 }
-// N-2 выше
+
+// N-2
+bool NZER_N_B(LNum const& num)
+{
+    for (int i = 0; i < num.len(); ++i)
+        if (num.digits[i])
+            return false;
+    return true;
+}
+
 // N-3
-LNum ADD_1N_N(LNum& a) {
+LNum ADD_1N_N(LNum const& a) {
 	LNum b;
 	int l = a.len();
 	b.digits.reserve(l + 1);
@@ -95,8 +101,9 @@ LNum ADD_1N_N(LNum& a) {
 		b.digits.push_back(1);
 	return b;
 }
+
 // N-4
-LNum ADD_NN_N(LNum& a, LNum& b){
+LNum ADD_NN_N(LNum const& a, LNum const& b){
 	LNum c;
 	int l1 = a.len();
 	int l2 = b.len();
@@ -114,13 +121,13 @@ LNum ADD_NN_N(LNum& a, LNum& b){
 		c.digits.push_back(1);
 	return c;
 }
+
 // N-5
-LNum SUB_NN_N(LNum& a, LNum& b) {
+LNum SUB_NN_N(LNum const& a, LNum const& b) {
 	LNum c;
-	if (COM_NN_D(a, b) == Ordinal::LT) {
-		LNum t = a;
-		a = b;
-		b = t;
+	if (COM_NN_D(a, b) == Ordinal::LT || COM_NN_D(a, b) == Ordinal::EQ) {
+        c = { vector<int>({0}) };
+        return c;
 	}
 	int l1 = a.len();
 	int l2 = b.len();
@@ -149,8 +156,9 @@ LNum SUB_NN_N(LNum& a, LNum& b) {
 	clearZero(c);
 	return c;
 }
+
 // N-6
-LNum MUL_ND_N(LNum& a, int b) {
+LNum MUL_ND_N(LNum const& a, int const b) {
 	LNum c;
 	int l = a.len();
 	c.digits.reserve(l + 1);
@@ -167,7 +175,7 @@ LNum MUL_ND_N(LNum& a, int b) {
 }
 
 // N-7
-LNum MUL_Nk_N(LNum& num, int k)
+LNum MUL_Nk_N(LNum const& num, int const k)
 {
     LNum res = num;
     for (int i = 0; i < k; ++i)
@@ -176,7 +184,7 @@ LNum MUL_Nk_N(LNum& num, int k)
 }
 
 // N-8
-LNum MUL_NN_N(LNum& left, LNum& right)
+LNum MUL_NN_N(LNum const& left, LNum const& right)
 {
     LNum res = { vector<int>({ 0 }) };
     for (auto i = 0; i < right.len(); ++i)
@@ -190,7 +198,7 @@ LNum MUL_NN_N(LNum& left, LNum& right)
 }
 
 // N-9
-LNum SUB_NDN_N(LNum& left, LNum& right, int dig)
+LNum SUB_NDN_N(LNum const& left, LNum const& right, int const dig)
 {
     LNum subbed = MUL_ND_N(right, dig);
     if (COM_NN_D(left, subbed) == Ordinal::GT)
