@@ -43,7 +43,7 @@ istream& operator>>(istream& is, Polynome& pl)
 }
 
 // P-4
-Polynome MUL_Pxk_P(Polynome& pol, int k)
+Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 {
     // Why would you?
     if (k == 0) return pol;
@@ -56,7 +56,8 @@ Polynome MUL_Pxk_P(Polynome& pol, int k)
     if (k >  0)
     {
         // Shifting left
-        while (k-- > 0) res.coefficients.insert(res.coefficients.begin(), Rzero);
+        auto i = k;
+        while (i-- > 0) res.coefficients.insert(res.coefficients.begin(), Rzero);
     }
     else
     {

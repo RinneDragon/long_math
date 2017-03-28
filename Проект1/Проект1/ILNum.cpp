@@ -34,20 +34,25 @@ int ILNum::len()
     return nPart.len();
 }
 
+int ILNum::len() const
+{
+    return nPart.len();
+}
+
 //Z-1
-LNum ABS_Z_N(ILNum& a) {
+LNum ABS_Z_N(ILNum const& a) {
 	return a.nPart;
 }
 
 //Z-2
-int POZ_Z_D(ILNum& a) {
+int POZ_Z_D(ILNum const& a) {
 	if (!NZER_N_B(a.nPart)) return 0;
 	else if (a.minus == true) return 1;
 	else return 2;
 }
 
 //Z-3
-ILNum MUL_ZM_Z(ILNum& a) {
+ILNum MUL_ZM_Z(ILNum const& a) {
 	ILNum c;
 	c = a;
 	c.minus = !a.minus;
@@ -55,18 +60,18 @@ ILNum MUL_ZM_Z(ILNum& a) {
 }
 
 // Z-4
-ILNum TRANS_N_Z(LNum& num)
+ILNum TRANS_N_Z(LNum const& num)
 {
     return { false , num };
 }
 
 //Z-5
-LNum TRANS_Z_N(ILNum& num) {
+LNum TRANS_Z_N(ILNum const& num) {
 	return num.nPart;
 }
 
 //Z-6
-ILNum ADD_ZZ_Z(ILNum& a, ILNum& b) {
+ILNum ADD_ZZ_Z(ILNum const& a, ILNum const& b) {
 	if (a.minus ^ b.minus)
 	{
 		if (COM_NN_D(a.nPart,b.nPart) == Ordinal::GT)

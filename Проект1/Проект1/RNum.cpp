@@ -33,17 +33,17 @@ istream& operator>>(istream& is, RNum& ex)
 }*/
 
 //Q-2
-bool INT_Q_B(RNum& num) {
+bool INT_Q_B(RNum const& num) {
 	return num.den.digits == vector<int>({ 1 });
 }
 
 //Q-3
-RNum TRANS_Z_Q(ILNum& num) {
+RNum TRANS_Z_Q(ILNum const& num) {
 	return{ num, { vector<int>({ 1 }) } };
 }
 
 //Q-4
-ILNum TRANS_Q_Z(RNum& num) {
+ILNum TRANS_Q_Z(RNum const& num) {
 	return num.num;
 }
 
