@@ -46,4 +46,4 @@ LNum MOD_NN_N(LNum const&, LNum const&);
 // N-12
 LNum GCF_NN_N(LNum const&, LNum const&);
 // N-13
-LNum LCM_NN_NN(LNum const&, LNum const&);
+LNum LCM_NN_N(LNum const&, LNum const&);
