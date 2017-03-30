@@ -12,7 +12,7 @@ struct ILNum {
     int len() const;
 	void setDigits(string str);
     // Отрицательно ли число
-	bool minus;
+	bool negative;
     // Натуральная часть числа
 	LNum nPart;
 };
