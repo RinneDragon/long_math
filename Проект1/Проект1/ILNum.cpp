@@ -5,7 +5,7 @@
 // Перегрузка оператора вывода
 ostream& operator<<(ostream& os, ILNum& a)
 {
-    if(a.minus)
+    if(a.negative)
         os << '-';
     for (auto it = a.nPart.digits.rbegin(); it != a.nPart.digits.rend(); ++it)
         os << *it;
@@ -23,9 +23,9 @@ istream& operator>>(istream& is, ILNum& a)
 
 void ILNum::setDigits(string str) 
 {
-    minus = str[0] == '-';
-    nPart.digits.reserve(str.length() - minus);
-    for (int i = str.length() - 1; i >= minus; --i)
+    negative = str[0] == '-';
+    nPart.digits.reserve(str.length() - negative);
+    for (int i = str.length() - 1; i >= negative; --i)
         nPart.digits.push_back(str[i] - '0');
 }
 
@@ -55,8 +55,8 @@ int POZ_Z_D(ILNum const& a) {
 ILNum MUL_ZM_Z(ILNum const& a) {
 	ILNum c;
 	c = a;
-	c.minus = !a.minus;
-	return c;
+	c.negative = !a.negative;
+    return c;
 }
 
 // Z-4
@@ -72,13 +72,13 @@ LNum TRANS_Z_N(ILNum const& num) {
 
 //Z-6
 ILNum ADD_ZZ_Z(ILNum const& a, ILNum const& b) {
-	if (a.minus ^ b.minus)
+	if (a.negative ^ b.negative)
 	{
 		if (COM_NN_D(a.nPart,b.nPart) == Ordinal::GT)
-			return{ a.minus, SUB_NN_N(a.nPart,b.nPart) };
+			return{ a.negative, SUB_NN_N(a.nPart,b.nPart) };
 		if (COM_NN_D(a.nPart, b.nPart) == Ordinal::LT)
-			return{ b.minus, SUB_NN_N(b.nPart,a.nPart) };
+			return{ b.negative, SUB_NN_N(b.nPart,a.nPart) };
 		return{ false, { vector<int>({ 0 }) } };
 	}
-	return{ a.minus, ADD_NN_N(a.nPart,b.nPart) };
+	return{ a.negative, ADD_NN_N(a.nPart,b.nPart) };
 }
