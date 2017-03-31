@@ -105,7 +105,7 @@ RNum FAC_P_Q(Polynome const& poly)
 }
 
 //Умножение многочлена на рациональное число
-Polynome MUL_PQ_P(Polynome const& poly, RNum& num)
+Polynome MUL_PQ_P(Polynome const& poly, RNum const& num)
 {
 	Polynome res;
 	for (int i = 0; i < poly.coefficients.size(); i++)
@@ -116,7 +116,7 @@ Polynome MUL_PQ_P(Polynome const& poly, RNum& num)
 }
 
 //Суммирование полиномов
-Polynome ADD_PP_P(Polynome const&pol1, Polynome& pol2)
+Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
 {
 	Polynome sum, poly1 = pol1, poly2 = pol2;
 
@@ -139,7 +139,7 @@ Polynome ADD_PP_P(Polynome const&pol1, Polynome& pol2)
 }
 
 //Вычитание полиномов
-Polynome SUB_PP_P(Polynome const&pol1, Polynome &pol2)
+Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
 {
 	Polynome sub, poly1 = pol1, poly2 = pol2;
 
@@ -197,7 +197,9 @@ Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 		service = MUL_Pxk_P(service, (minpoly.coefficients.size() - 1) - f);
 		mul = ADD_PP_P(service, mul);
 	}
+	return mul;
 }
+
 
 //Частное от деления многочлена на многочлен при делении с остатком
 Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2) {
@@ -246,8 +248,20 @@ Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 }
 
 //НОД многочленов
+// DEG_P_N - степень многочлена
+//MOD_PP_P - Остаток от деления многочлена на многочлен при делении с остатком
 Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
+	Polynome * nod = new Polynome[min(DEG_P_N(poly1), DEG_P_N(poly2))];
+	
+	
 
+
+
+	delete[]nod;
+
+	Polynome res;
+
+	return res;
 }
 
 //Производная многочлена
