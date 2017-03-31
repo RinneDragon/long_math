@@ -10,8 +10,8 @@ ostream& operator<<(ostream& os, Polynome& pl)
 		if (!NZER_N_B(curCoeff.num.nPart))
 		{
 			if (!first)
-				cout << ' ' << (curCoeff.num.minus ? '-' : '+') << ' ';
-			else if (curCoeff.num.minus)
+				cout << ' ' << (curCoeff.num.negative ? '-' : '+') << ' ';
+			else if (curCoeff.num.negative)
 				cout << '-';
 			if (curCoeff.den.len() == 1 && curCoeff.den.digits[0] == 1)
 				os << curCoeff.num.nPart;
