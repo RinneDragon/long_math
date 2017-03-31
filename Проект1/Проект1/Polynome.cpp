@@ -43,7 +43,7 @@ istream& operator>>(istream& is, Polynome& pl)
 	return is;
 }
 
-// Умножение полинома на x в степени k
+// РЈРјРЅРѕР¶РµРЅРёРµ РїРѕР»РёРЅРѕРјР° РЅР° x РІ СЃС‚РµРїРµРЅРё k
 Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 {
 	// Why would you?
@@ -72,7 +72,7 @@ Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 	return res;
 }
 
-//Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей
+//Р’С‹РЅРµСЃРµРЅРёРµ РёР· РјРЅРѕРіРѕС‡Р»РµРЅР° РќРћРљ Р·РЅР°РјРµРЅР°С‚РµР»РµР№ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ Рё РќРћР” С‡РёСЃР»РёС‚РµР»РµР№
 RNum FAC_P_Q(Polynome const& poly)
 {
 	int count = poly.coefficients.size();
@@ -104,7 +104,7 @@ RNum FAC_P_Q(Polynome const& poly)
 	return res;
 }
 
-//Умножение многочлена на рациональное число
+//РЈРјРЅРѕР¶РµРЅРёРµ РјРЅРѕРіРѕС‡Р»РµРЅР° РЅР° СЂР°С†РёРѕРЅР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ
 Polynome MUL_PQ_P(Polynome const& poly, RNum& num)
 {
 	Polynome res;
@@ -115,7 +115,7 @@ Polynome MUL_PQ_P(Polynome const& poly, RNum& num)
 	return res;
 }
 
-//Суммирование полиномов
+//РЎСѓРјРјРёСЂРѕРІР°РЅРёРµ РїРѕР»РёРЅРѕРјРѕРІ
 Polynome ADD_PP_P(Polynome const&pol1, Polynome& pol2)
 {
 	Polynome sum, poly1 = pol1, poly2 = pol2;
@@ -138,7 +138,7 @@ Polynome ADD_PP_P(Polynome const&pol1, Polynome& pol2)
 	return sum;
 }
 
-//Вычитание полиномов
+//Р’С‹С‡РёС‚Р°РЅРёРµ РїРѕР»РёРЅРѕРјРѕРІ
 Polynome SUB_PP_P(Polynome const&pol1, Polynome &pol2)
 {
 	Polynome sub, poly1 = pol1, poly2 = pol2;
@@ -161,7 +161,7 @@ Polynome SUB_PP_P(Polynome const&pol1, Polynome &pol2)
 	return sub;
 }
 
-//Степень многочлена 
+//РЎС‚РµРїРµРЅСЊ РјРЅРѕРіРѕС‡Р»РµРЅР° 
 int DEG_P_N(Polynome const& poly)
 {
 	int ma = 0;
@@ -177,14 +177,14 @@ int DEG_P_N(Polynome const& poly)
 	return ma;
 }
 
-//Старший коэффициент многочлена
+//РЎС‚Р°СЂС€РёР№ РєРѕСЌС„С„РёС†РёРµРЅС‚ РјРЅРѕРіРѕС‡Р»РµРЅР°
 RNum LED_P_Q(Polynome  const&poly)
 {
 	return poly.coefficients[DEG_P_N(poly)];
 }
 
 
-//Умножение многочленов
+//РЈРјРЅРѕР¶РµРЅРёРµ РјРЅРѕРіРѕС‡Р»РµРЅРѕРІ
 Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	Polynome mul, maxpoly = poly1, minpoly = poly2, service;
 
@@ -199,7 +199,7 @@ Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	}
 }
 
-//Частное от деления многочлена на многочлен при делении с остатком
+//Р§Р°СЃС‚РЅРѕРµ РѕС‚ РґРµР»РµРЅРёСЏ РјРЅРѕРіРѕС‡Р»РµРЅР° РЅР° РјРЅРѕРіРѕС‡Р»РµРЅ РїСЂРё РґРµР»РµРЅРёРё СЃ РѕСЃС‚Р°С‚РєРѕРј
 Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	Polynome div, maxpoly = poly1, minpoly = poly2, service;
 	int DEGminpoly = DEG_P_N(minpoly);
@@ -221,7 +221,7 @@ Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	return div;
 }
 
-//Остаток от деления многочлена на многочлен при делении с остатком
+//РћСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ РјРЅРѕРіРѕС‡Р»РµРЅР° РЅР° РјРЅРѕРіРѕС‡Р»РµРЅ РїСЂРё РґРµР»РµРЅРёРё СЃ РѕСЃС‚Р°С‚РєРѕРј
 Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 {
 	Polynome mod, maxpoly = poly1, minpoly = poly2, service;
@@ -245,12 +245,12 @@ Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 	return mod;
 }
 
-//НОД многочленов
+//РќРћР” РјРЅРѕРіРѕС‡Р»РµРЅРѕРІ
 Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
-
+    
 }
 
-//Производная многочлена
+//РџСЂРѕРёР·РІРѕРґРЅР°СЏ РјРЅРѕРіРѕС‡Р»РµРЅР°
 Polynome DER_P_P(Polynome const& poly)
 {
 	Polynome der;
