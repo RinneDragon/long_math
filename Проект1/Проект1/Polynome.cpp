@@ -197,6 +197,7 @@ Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 		service = MUL_Pxk_P(service, (minpoly.coefficients.size() - 1) - f);
 		mul = ADD_PP_P(service, mul);
 	}
+    return mul;
 }
 
 //Частное от деления многочлена на многочлен при делении с остатком
