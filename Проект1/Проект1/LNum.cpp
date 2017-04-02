@@ -53,7 +53,7 @@ int LNum::len() const
 
 void LNum::setDigits(string str) 
 {
-	digits.reserve(str.length());
+	digits.resize(str.length());
 	for(int i = 0; i < digits.size(); ++i)
 		digits[i] = str [str.length() - 1 - i] - '0';
 }
