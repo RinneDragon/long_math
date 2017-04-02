@@ -53,7 +53,7 @@ int LNum::len() const
 
 void LNum::setDigits(string str) 
 {
-	digits.resize(str.length());
+	digits.reserve(str.length());
 	for (int i = str.length() - 1; i >= 0; --i)
 		digits.push_back(str[i] - '0');
 }
@@ -206,7 +206,67 @@ LNum SUB_NDN_N(LNum const& left, LNum const& right, int const dig)
     LNum zero = { vector<int>({ 0 }) };
     return zero;
 }
+//N-10
+LNum DIV_NN_Dk(LNum const& a, LNum const& b)
+{
+	LNum k;
+	k.setDigits("0");
 
+	if (NZER_N_B(b) || (COM_NN_D(a, b) == Ordinal::LT))
+	{
+		return k;
+	}
+
+	LNum c = a;
+	int n = a.len() - b.len();
+	LNum mulB = MUL_Nk_N(b, n);
+
+	if (COM_NN_D(a, mulB) == Ordinal::LT)
+	{
+		--n;
+		mulB = MUL_Nk_N(b, n);
+	}
+
+	while (COM_NN_D(c, mulB) != Ordinal::LT)
+	{
+		c = SUB_NN_N(c, mulB);
+		k = ADD_1N_N(k);
+	}
+
+	return MUL_Nk_N(k, n);
+}
+//N-11
+LNum DIV_NN_N(LNum const& a, LNum const& b)
+{
+	LNum t;
+	t.setDigits("0");
+
+	if (NZER_N_B(b) || (COM_NN_D(a, b) == Ordinal::LT))
+	{
+		return t;
+	}
+
+	LNum c = a;
+	while (COM_NN_D(c, b) != Ordinal::LT)
+	{
+		t = ADD_NN_N(t, DIV_NN_Dk(c, b));
+		c = SUB_NN_N(c, MUL_NN_N(DIV_NN_Dk(c, b), b));
+	}
+	return t;
+}
+//N-12
+LNum MOD_NN_N(LNum const& a, LNum const& b)
+{
+	LNum t;
+	t.setDigits("0");
+
+	if (NZER_N_B(b))
+	{
+		return t;
+	}
+
+	return SUB_NN_N(a, MUL_NN_N(DIV_NN_N(a, b), b));
+}
 // N-14
 //LNum LCM_NN_N(LNum& a, LNum& b)
 //{
