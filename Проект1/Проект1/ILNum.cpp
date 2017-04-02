@@ -82,3 +82,10 @@ ILNum ADD_ZZ_Z(ILNum const& a, ILNum const& b) {
 	}
 	return{ a.negative, ADD_NN_N(a.nPart,b.nPart) };
 }
+//Z-7. Автор: Денис Ли
+ILNum SUB_ZZ_Z(ILNum const& a, ILNum const& b)
+{
+	ILNum T = b;
+	T.negative = !T.negative;
+	return ADD_ZZ_Z(a, T);
+}

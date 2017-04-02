@@ -9,10 +9,10 @@
 
 int main()
 {
-	LNum a;
-	int b;
+	ILNum a,b;
+	//int b;
 	cin >> a >> b;
-	cout << MUL_ND_N(a, b);
+	cout << SUB_ZZ_Z(a, b);
 	system("pause");
 	return 0;
 }
