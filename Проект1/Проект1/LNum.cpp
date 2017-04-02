@@ -257,16 +257,12 @@ LNum DIV_NN_N(LNum const& a, LNum const& b)
 //N-12
 LNum MOD_NN_N(LNum const& a, LNum const& b)
 {
-	LNum t;
-	t.setDigits("0");
 
 	if (NZER_N_B(b))
-	{
-		return t;
-	}
-
+		return { vector<int>({ 0 }) };
 	return SUB_NN_N(a, MUL_NN_N(DIV_NN_N(a, b), b));
 }
+
 //N-13
 LNum GCF_NN_N(LNum const& a, LNum const& b)
 {
