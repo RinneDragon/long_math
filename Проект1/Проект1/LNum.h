@@ -40,10 +40,12 @@ LNum MUL_NN_N(LNum const&, LNum const&);
 // N-9
 LNum SUB_NDN_N(LNum const&, LNum const&, int const);
 // N-10
-LNum DIV_NN_N(LNum const&, LNum const&);
+LNum DIV_NN_Dk(LNum const&, LNum const&);
 // N-11
-LNum MOD_NN_N(LNum const&, LNum const&);
+LNum DIV_NN_N(LNum const&, LNum const&);
 // N-12
-LNum GCF_NN_N(LNum const&, LNum const&);
+LNum MOD_NN_N(LNum const&, LNum const&);
 // N-13
+LNum GCF_NN_N(LNum const&, LNum const&);
+// N-14
 LNum LCM_NN_N(LNum const&, LNum const&);

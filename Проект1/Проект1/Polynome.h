@@ -23,9 +23,9 @@ Polynome MUL_PP_P(Polynome const&, Polynome const&);
 Polynome DIV_PP_P(Polynome const&, Polynome const&);
 Polynome MOD_PP_P(Polynome const&, Polynome const&);
 Polynome GCF_PP_P(Polynome const&, Polynome const&);
-Polynome DER_P_P(Polynome const&, Polynome const&);
-Polynome NMR_P_P(Polynome const&, Polynome const&);
+Polynome DER_P_P(Polynome const&);
+Polynome NMR_P_P(Polynome const&);
 
-const Polynome operator%(const Polynome& left, const Polynome& right) {
-	return MOD_PP_P(left, right);
-}
+//const Polynome operator%(const Polynome& left, const Polynome& right) {
+//	return MOD_PP_P(left, right);
+//}
