@@ -95,20 +95,15 @@ ILNum MUL_ZZ_Z(ILNum const& a, ILNum const& b)
 {
 	ILNum c;
 	c.nPart = MUL_NN_N(a.nPart, b.nPart);
-	c.negative = false;
-	if (a.negative^b.negative)
-	{
-		c.negative = true;
-	}
+	c.negative = a.negative^b.negative;	
 	return c;
 }
 //Z-9
-ILNum DIV_ZZ_Z(ILNum const& a, ILNum const& b) {
+ILNum DIV_ZZ_Z(ILNum const& a, ILNum const& b)
+{
 	ILNum c;
 	c.nPart = DIV_NN_N(a.nPart, b.nPart);
-	c.negative = false;
-	if (a.negative^b.negative) {
-		c.negative = true;
-	}
+	c.negative = a.negative^b.negative;
 	return c;
 }
+ 
