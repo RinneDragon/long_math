@@ -1,5 +1,6 @@
 #include "Polynome.h"
 #include <algorithm>
+#include <stdarg.h>
 
 ostream& operator<<(ostream& os, Polynome& pl)
 {
@@ -42,6 +43,8 @@ istream& operator>>(istream& is, Polynome& pl)
 	reverse(pl.coefficients.begin(), pl.coefficients.end());
 	return is;
 }
+
+
 
 // Умножение полинома на x в степени k
 Polynome MUL_Pxk_P(Polynome const& pol, int const k)
@@ -247,21 +250,20 @@ Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 	return mod;
 }
 
-//НОД многочленов
+//НОД многочленов для рациональных чисел
 // DEG_P_N - степень многочлена
 //MOD_PP_P - Остаток от деления многочлена на многочлен при делении с остатком
 Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
-	Polynome * nod = new Polynome[min(DEG_P_N(poly1), DEG_P_N(poly2))];
-	
-	
+	Polynome divident = poly1, divider = poly2, tempo;
 
+	while (DEG_P_N(divider) != 0 && !NZER_N_B(divider.coefficients[0].num.nPart))
+	{
+		tempo = divider;
+		divider = MOD_PP_P(divident, divider);
+		divident = tempo;
+	}	
 
-
-	delete[]nod;
-
-	Polynome res;
-
-	return res;
+	return divident;
 }
 
 //Производная многочлена
@@ -283,3 +285,4 @@ Polynome DER_P_P(Polynome const& poly)
 
 
 Polynome NMR_P_P(Polynome const&, Polynome const&);
+
