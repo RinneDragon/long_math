@@ -40,7 +40,7 @@ LNum MUL_NN_N(LNum const&, LNum const&);
 // N-9
 LNum SUB_NDN_N(LNum const&, LNum const&, int const);
 // N-10
-int DIV_NN_Dk(LNum const&, LNum const&);
+LNum DIV_NN_Dk(LNum const&, LNum const&);
 // N-11
 LNum DIV_NN_N(LNum const&, LNum const&);
 // N-12
