@@ -267,8 +267,27 @@ LNum MOD_NN_N(LNum const& a, LNum const& b)
 
 	return SUB_NN_N(a, MUL_NN_N(DIV_NN_N(a, b), b));
 }
-// N-14
-//LNum LCM_NN_N(LNum& a, LNum& b)
-//{
-//    return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
-//}
+//N-13
+LNum GCF_NN_N(LNum const& a, LNum const& b)
+{
+	LNum t;
+	t.setDigits("0");
+
+	if (NZER_N_B(b))
+	{
+		return t;
+	}
+	LNum a1 = a, b1 = b, c;
+	while (!NZER_N_B(b1))
+	{
+		c = b1;
+		b1 = MOD_NN_N(a1, b1);
+		a1 = c;
+	}
+	return a1;
+}
+//N-14
+LNum LCM_NN_N(LNum const& a, LNum const& b)
+{
+    return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
+}
