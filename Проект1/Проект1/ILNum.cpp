@@ -106,4 +106,12 @@ ILNum DIV_ZZ_Z(ILNum const& a, ILNum const& b)
 	c.negative = a.negative^b.negative;
 	return c;
 }
- 
+//Z-10
+ILNum MOD_ZZ_Z(ILNum const& a, ILNum const& b) {
+	ILNum tmp;
+	tmp.negative = b.negative;
+	tmp.nPart = MOD_NN_N(a.nPart, b.nPart);
+	if (a.negative ^ b.negative)
+		tmp.nPart = SUB_NN_N(b.nPart, tmp.nPart);
+	return tmp;
+}

@@ -23,14 +23,15 @@ istream& operator>>(istream& is, RNum& ex)
     ex.den.setDigits(s2);
     return is;
 }
-/*RNum RED_Q_Q(RNum& numb) // функция сокращения дробей ABS_Z_N GCF_NN_N DIV_ZZ_Z DIV_NN_N
+//Q-1
+RNum RED_Q_Q(RNum const& numb)
 {
 	LNum NOD = GCF_NN_N(ABS_Z_N(numb.num), numb.den);
 	RNum shortNum;
 	shortNum.den = DIV_NN_N(numb.den, NOD);
-	shortNum.num = DIV_ZZ_Z(numb.num, NOD);
+	shortNum.num = DIV_ZZ_Z(numb.num, TRANS_N_Z(NOD)); 
 	return shortNum;
-}*/
+}
 
 //Q-2
 bool INT_Q_B(RNum const& num) {
@@ -47,26 +48,39 @@ ILNum TRANS_Q_Z(RNum const& num) {
 	return num.num;
 }
 
-/*
+
 //Q-5
-RNum ADD_QQ_Q(RNum& a, RNum& b) //сложение дробей LCM_NN_N MUL_ZZ_Z ADD_ZZ_Z
+RNum ADD_QQ_Q(RNum const& a, RNum const& b) //сложение дробей LCM_NN_N MUL_ZZ_Z ADD_ZZ_Z
 {
-	LNum numb1_2 = DIV_NN_N(LCM_NN_N(a.den, b.den), a.den);
-	LNum numb2_2 = DIV_NN_N(LCM_NN_N(a.den, b.den), b.den);
-	return {{ADD_ZZ_Z(MUL_ZZ_Z(a.num, numb1_2), MUL_ZZ_Z(b.num, numb1_2))},{LCM_NN_N(a.den, b.den)}};
+	RNum c;
+	c.den = LCM_NN_N(a.den, b.den);
+	c.num = ADD_ZZ_Z(MUL_ZZ_Z(a.num, TRANS_N_Z(DIV_NN_N(LCM_NN_N(a.den, b.den), a.den))), MUL_ZZ_Z(b.num, TRANS_N_Z(DIV_NN_N(LCM_NN_N(a.den, b.den), b.den))));
+	return c;
 }
-*/
-/*
+
 //Q-6
-RNum SUB_QQ_Q(RNum& a, RNum& b) //вычитание дробей LCM_NN_N MUL_ZZ_Z SUB_ZZ_Z 
+RNum SUB_QQ_Q(RNum const& a, RNum const& b)
 {
-	return {{false,{ vector<int>({ 0 }) }},{ vector<int>({ 1 }) }};
+	RNum c = b;
+	c.num.negative = !b.num.negative;
+	return ADD_QQ_Q(a, c);
 }
-*/
-/*
+
+//Q-7
+RNum MUL_QQ_Q(RNum const& a, RNum const& b)
+{
+	RNum c;
+	c.den = MUL_NN_N(a.den, b.den);
+	c.num = MUL_ZZ_Z(a.num, b.num);
+	return c;
+}
+
 //Q-8
-RNum DIV_QQ_Q(RNum& a, RNum& b) // функция деления дробей MUL_ZZ_Z MUL_NN_N
+RNum DIV_QQ_Q(RNum const& a, RNum const& b) // вроде все
 {
-return RED_Q_Q( { {a.num.minus^b.num.minus, {MUL_NN_N(a.num.nPart, b.den)} } , {MUL_NN_N(a.den, b.num.nPart)} });
+	ILNum num;
+	LNum den = MUL_NN_N(a.den, b.num.nPart);
+	num.negative = a.num.negative ^ b.num.negative;
+	num.nPart = MUL_NN_N(a.num.nPart, b.den);
+	return RED_Q_Q({ num, den });
 }
-*/
