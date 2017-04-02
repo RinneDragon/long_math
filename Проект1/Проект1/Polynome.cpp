@@ -44,9 +44,72 @@ istream& operator>>(istream& is, Polynome& pl)
 	return is;
 }
 
+//Суммирование полиномов
+//P-1 @solodov
+Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
+{
+	Polynome sum, poly1 = pol1, poly2 = pol2;
+	sum.coefficients.resize(max(DEG_P_N(poly1), DEG_P_N(poly2)));
 
+	if (DEG_P_N(poly1) < DEG_P_N(poly2))
+		swap(poly1, poly2);
+
+	int i = 0;
+
+	for (i = 0; i <= DEG_P_N(poly2); i++)
+	{
+		sum.coefficients[i] = ADD_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]);
+	}
+
+	for (int f = i; f <= DEG_P_N(poly1); f++)
+	{
+		sum.coefficients[f] = poly1.coefficients[f];
+	}
+
+	return sum;
+}
+
+//Вычитание полиномов
+//P-2 @solodov
+Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
+{
+	Polynome sub, poly1 = pol1, poly2 = pol2;
+	sub.coefficients.resize(max(DEG_P_N(poly1), DEG_P_N(poly2)));
+
+	if (DEG_P_N(poly1) < DEG_P_N(poly2))
+		swap(poly1, poly2);
+
+	int i = 0;
+
+	for (i = 0; i <= DEG_P_N(poly2); i++)
+	{
+		sub.coefficients[i] = SUB_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]);
+	}
+
+	for (int f = i; f <= DEG_P_N(poly1); f++)
+	{
+		sub.coefficients[f] = poly1.coefficients[f];
+	}
+
+	return sub;
+}
+
+//Умножение многочлена на рациональное число
+//P-3 @solodov
+Polynome MUL_PQ_P(Polynome const& poly, RNum const& num)
+{
+	Polynome res;
+	res.coefficients.resize(DEG_P_N(poly));
+
+	for (int i = 0; i <= DEG_P_N(poly); i++)
+	{
+		res.coefficients[i] = MUL_QQ_Q(poly.coefficients[i], num);
+	}
+	return res;
+}
 
 // Умножение полинома на x в степени k
+//P-4 @anon
 Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 {
 	// Why would you?
@@ -75,10 +138,34 @@ Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 	return res;
 }
 
+//Старший коэффициент многочлена
+//P-5 @solodov
+RNum LED_P_Q(Polynome const& poly)
+{
+	return poly.coefficients[DEG_P_N(poly)];
+}
+
+//Степень многочлена. return -1 if every coord == 0;
+//P-6 @solodov
+int DEG_P_N(Polynome const& poly)
+{
+	for (int i = poly.coefficients.size() - 1; i >= 0; i--)
+	{
+		if (!NZER_N_B(poly.coefficients[i].num.nPart))
+		{
+			return i;
+		}
+	}
+
+	//если нет ненулевых коэффициентов.
+	return -1;
+}
+
 //Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей
+//P-7 @solodov
 RNum FAC_P_Q(Polynome const& poly)
 {
-	int count = poly.coefficients.size();
+	int count = DEG_P_N(poly);
 	RNum res;
 	res.den.setDigits("1");
 	res.num.setDigits("0");
@@ -107,152 +194,60 @@ RNum FAC_P_Q(Polynome const& poly)
 	return res;
 }
 
-//Умножение многочлена на рациональное число
-Polynome MUL_PQ_P(Polynome const& poly, RNum const& num)
-{
-	Polynome res;
-	for (int i = 0; i < poly.coefficients.size(); i++)
-	{
-		res.coefficients[i] = MUL_QQ_Q(poly.coefficients[i], num);
-	}
-	return res;
-}
-
-//Суммирование полиномов
-Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
-{
-	Polynome sum, poly1 = pol1, poly2 = pol2;
-
-	if (poly1.coefficients.size() < poly2.coefficients.size())
-		swap(poly1, poly2);
-
-	int dem = poly1.coefficients.size() - poly2.coefficients.size(), i = 0;
-
-	for (i = 0; i < min(poly1.coefficients.size(), poly2.coefficients.size()); i++)
-	{
-		sum.coefficients.push_back(ADD_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]));
-	}
-
-	for (int f = 0; f < dem; f++)
-	{
-		sum.coefficients.push_back(poly1.coefficients[i++]);
-	}
-
-	return sum;
-}
-
-//Вычитание полиномов
-Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
-{
-	Polynome sub, poly1 = pol1, poly2 = pol2;
-
-	if (poly1.coefficients.size() < poly2.coefficients.size())
-		swap(poly1, poly2);
-
-	int dem = poly1.coefficients.size() - poly2.coefficients.size(), i = 0;
-
-	for (i = 0; i < min(poly1.coefficients.size(), poly2.coefficients.size()); i++)
-	{
-		sub.coefficients.push_back(SUB_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]));
-	}
-
-	for (int f = 0; f < dem; f++)
-	{
-		sub.coefficients.push_back(poly1.coefficients[i++]);
-	}
-
-	return sub;
-}
-
-//Степень многочлена 
-int DEG_P_N(Polynome const& poly)
-{
-	int ma = 0;
-	for (int i = poly.coefficients.size() - 1; i >= 0; i--)
-	{
-		if (poly.coefficients[i].num.nPart.len() != 0)
-		{
-			ma = i;
-			break;
-		}
-	}
-
-	return ma;
-}
-
-//Старший коэффициент многочлена
-RNum LED_P_Q(Polynome  const&poly)
-{
-	return poly.coefficients[DEG_P_N(poly)];
-}
-
-
 //Умножение многочленов
+//P-8 @solodov
 Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	Polynome mul, maxpoly = poly1, minpoly = poly2, service;
 
-	if (poly1.coefficients.size() < poly2.coefficients.size())
+	if (DEG_P_N(poly1) < DEG_P_N(poly2))
 		swap(maxpoly, minpoly);
 
-	for (int f = 0; f < minpoly.coefficients.size(); f++)
+	for (int f = 0; f <= DEG_P_N(minpoly); f++)
 	{
 		service = MUL_PQ_P(maxpoly, minpoly.coefficients[f]);
-		service = MUL_Pxk_P(service, (minpoly.coefficients.size() - 1) - f);
+		service = MUL_Pxk_P(service, f);
 		mul = ADD_PP_P(service, mul);
 	}
 	return mul;
 }
 
-
 //Частное от деления многочлена на многочлен при делении с остатком
-Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2) {
+//P-9 @solodov
+Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2, Polynome &remainder) {
 	Polynome div, maxpoly = poly1, minpoly = poly2, service;
-	int DEGminpoly = DEG_P_N(minpoly);
 
-	if (poly1.coefficients.size() < poly2.coefficients.size())
+	if (DEG_P_N(poly1) < DEG_P_N(poly2))
 		swap(maxpoly, minpoly);
 
-	div = MUL_Pxk_P(div, DEG_P_N(maxpoly) - DEGminpoly);
+	int degMinPoly = DEG_P_N(minpoly), degMaxPoly = DEG_P_N(maxpoly);
 
-	for (int f = maxpoly.coefficients.size() - 1; f >= DEGminpoly; f--)
+	div.coefficients.resize(degMaxPoly);
+
+	for (int powerofx = degMaxPoly; powerofx >= degMinPoly; powerofx--)
 	{
-		div.coefficients[f] = DIV_QQ_Q(maxpoly.coefficients[f], minpoly.coefficients[minpoly.coefficients.size() - 1]);
+		div.coefficients[powerofx - degMinPoly] = DIV_QQ_Q(maxpoly.coefficients[powerofx], minpoly.coefficients[degMinPoly]);
 
-		service = MUL_PQ_P(minpoly, minpoly.coefficients[f]);
-		service = MUL_Pxk_P(service, f - DEGminpoly);
+		service = MUL_PQ_P(minpoly, div.coefficients[powerofx - degMinPoly]);
+		service = MUL_Pxk_P(service, powerofx - degMinPoly);
 		maxpoly = SUB_PP_P(maxpoly, service);
 	}
 
+	remainder = maxpoly;
 	return div;
 }
 
 //Остаток от деления многочлена на многочлен при делении с остатком
+//P-10 @solodov
 Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 {
-	Polynome mod, maxpoly = poly1, minpoly = poly2, service;
-	int DEGminpoly = DEG_P_N(minpoly);
+	Polynome remainder;
+	DIV_PP_P(poly1, poly2, remainder);
 
-	if (poly1.coefficients.size() < poly2.coefficients.size())
-		swap(maxpoly, minpoly);
-
-	mod = MUL_Pxk_P(mod, DEGminpoly - 1);
-
-	for (int f = maxpoly.coefficients.size() - 1; f >= DEGminpoly; f--)
-	{
-		service = MUL_PQ_P(minpoly, minpoly.coefficients[f]);
-		service = MUL_Pxk_P(service, f - DEGminpoly);
-		maxpoly = SUB_PP_P(maxpoly, service);
-	}
-	for (int i = DEGminpoly - 1; i >= 0; i--)
-	{
-		mod.coefficients[i] = maxpoly.coefficients[i];
-	}
-	return mod;
+	return remainder;
 }
 
 //НОД многочленов для рациональных чисел
-// DEG_P_N - степень многочлена
-//MOD_PP_P - Остаток от деления многочлена на многочлен при делении с остатком
+//P-11 @solodov
 Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	Polynome divident = poly1, divider = poly2, tempo;
 
@@ -267,12 +262,14 @@ Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
 }
 
 //Производная многочлена
+//P-12 @solodov
 Polynome DER_P_P(Polynome const& poly)
 {
+	int degPoly = DEG_P_N(poly);
 	Polynome der;
-	der = MUL_Pxk_P(der, DEG_P_N(poly) - 1);
+	der.coefficients.resize(degPoly);
 
-	for (int f = DEG_P_N(poly); f > 0; f--)
+	for (int f = degPoly; f > 0; f--)
 	{
 		RNum Rf;
 		Rf.num.nPart.setDigits(std::to_string(f));
@@ -284,5 +281,7 @@ Polynome DER_P_P(Polynome const& poly)
 }
 
 
+//Преобразование многочлена — кратные корни в простые
+//P-13
 Polynome NMR_P_P(Polynome const&, Polynome const&);
 
