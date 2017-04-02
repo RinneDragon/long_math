@@ -24,10 +24,10 @@ istream& operator>>(istream& is, ILNum& a)
 void ILNum::setDigits(string str) 
 {
     negative = str[0] == '-';
-	int newSize = str.length() - negative;
+    int newSize = str.length() - negative;
     nPart.digits.resize(newSize);
     for(int i = 0; i < newSize; ++i)
-       	nPart.digits[i] = str[newSize - i - 1] - '0';
+       	nPart.digits[i] = str[str.length() - 1 - i] - '0';
 }
 
 int ILNum::len()
