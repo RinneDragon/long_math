@@ -5,7 +5,7 @@
 // Перегрузка оператора вывода
 ostream& operator<<(ostream& os, ILNum& a)
 {
-    if(a.negative)
+	if (NZER_N_B(a.nPart) && a.negative)
         os << '-';
     for (auto it = a.nPart.digits.rbegin(); it != a.nPart.digits.rend(); ++it)
         os << *it;
