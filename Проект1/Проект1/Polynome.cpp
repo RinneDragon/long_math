@@ -285,7 +285,6 @@ Polynome DER_P_P(Polynome const& poly)
 //P-13
 Polynome NMR_P_P(Polynome const&, Polynome const&);
 
-=======
 // Умножение полинома на x в степени k
 //Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 //{
