@@ -81,8 +81,8 @@ bool NZER_N_B(LNum const& num)
 {
     for (int i = 0; i < num.len(); ++i)
         if (num.digits[i])
-            return false;
-    return true;
+            return true;
+    return false;
 }
 
 // N-3
