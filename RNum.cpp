@@ -19,7 +19,7 @@ istream& operator>>(istream& is, RNum& ex)
     int n = s.find('/', 0);
     s1 = s.substr(0, n);
     s2 = (n != -1 ? s.substr(n + 1, s.length() - n) : "1");
-    ex.num.nPart.setDigits(s1);
+    ex.num.setDigits(s1);
     ex.den.setDigits(s2);
     return is;
 }
@@ -54,7 +54,7 @@ RNum ADD_QQ_Q(RNum const& a, RNum const& b) //сложение дробей LCM_
 {
 	RNum c;
 	c.den = LCM_NN_N(a.den, b.den);
-	c.num = ADD_ZZ_Z(MUL_ZZ_Z(a.num, TRANS_N_Z(DIV_NN_N(LCM_NN_N(a.den, b.den), a.den))), MUL_ZZ_Z(b.num, TRANS_N_Z(DIV_NN_N(LCM_NN_N(a.den, b.den), b.den))));
+	c.num = ADD_ZZ_Z(MUL_ZZ_Z(a.num, TRANS_N_Z(DIV_NN_N(c.den, a.den))), MUL_ZZ_Z(b.num, TRANS_N_Z(DIV_NN_N(c.den, b.den))));
 	return c;
 }
 

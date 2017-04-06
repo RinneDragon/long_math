@@ -8,7 +8,7 @@ ostream& operator<<(ostream& os, Polynome& pl)
 	for (int i = pl.coefficients.size() - 1; i >= 0; --i)
 	{
 		RNum& curCoeff = pl.coefficients[i];
-		if (!NZER_N_B(curCoeff.num.nPart))
+		if (NZER_N_B(curCoeff.num.nPart))
 		{
 			if (!first)
 				cout << ' ' << (curCoeff.num.negative ? '-' : '+') << ' ';
@@ -48,24 +48,17 @@ istream& operator>>(istream& is, Polynome& pl)
 //P-1 @solodov
 Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
 {
-	Polynome sum, poly1 = pol1, poly2 = pol2;
-	sum.coefficients.resize(max(DEG_P_N(poly1), DEG_P_N(poly2)));
-
-	if (DEG_P_N(poly1) < DEG_P_N(poly2))
-		swap(poly1, poly2);
-
-	int i = 0;
-
-	for (i = 0; i <= DEG_P_N(poly2); i++)
-	{
-		sum.coefficients[i] = ADD_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]);
-	}
-
-	for (int f = i; f <= DEG_P_N(poly1); f++)
-	{
-		sum.coefficients[f] = poly1.coefficients[f];
-	}
-
+	Polynome sum;
+	int sz1 = pol1.coefficients.size();
+	int sz2 = pol2.coefficients.size();
+	bool gt = sz1 > sz2;
+	const Polynome &poly1 = gt ? pol1 : pol2, &poly2 = gt ? pol2 : pol1;
+	if (!gt) swap(sz1, sz2);
+	int i;
+	for (i = 0; i < sz2; ++i)
+		sum.coefficients.push_back(ADD_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]));
+	for (int f = i; f < sz1; ++f)
+		sum.coefficients.push_back(poly1.coefficients[f]);
 	return sum;
 }
 
@@ -73,25 +66,11 @@ Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
 //P-2 @solodov
 Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
 {
-	Polynome sub, poly1 = pol1, poly2 = pol2;
-	sub.coefficients.resize(max(DEG_P_N(poly1), DEG_P_N(poly2)));
-
-	if (DEG_P_N(poly1) < DEG_P_N(poly2))
-		swap(poly1, poly2);
-
-	int i = 0;
-
-	for (i = 0; i <= DEG_P_N(poly2); i++)
-	{
-		sub.coefficients[i] = SUB_QQ_Q(poly1.coefficients[i], poly2.coefficients[i]);
-	}
-
-	for (int f = i; f <= DEG_P_N(poly1); f++)
-	{
-		sub.coefficients[f] = poly1.coefficients[f];
-	}
-
-	return sub;
+	Polynome res;
+	Polynome p2 = pol2;
+	for (int i = 0; i < p2.coefficients.size(); ++i)
+		p2.coefficients[i].num.negative = !p2.coefficients[i].num.negative;
+	return ADD_PP_P(pol1, p2);
 }
 
 //Умножение многочлена на рациональное число
@@ -99,12 +78,8 @@ Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
 Polynome MUL_PQ_P(Polynome const& poly, RNum const& num)
 {
 	Polynome res;
-	res.coefficients.resize(DEG_P_N(poly));
-
-	for (int i = 0; i <= DEG_P_N(poly); i++)
-	{
-		res.coefficients[i] = MUL_QQ_Q(poly.coefficients[i], num);
-	}
+	for (int i = 0; i < poly.coefficients.size(); ++i)
+		res.coefficients.push_back(MUL_QQ_Q(poly.coefficients[i], num));
 	return res;
 }
 
@@ -142,23 +117,14 @@ Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 //P-5 @solodov
 RNum LED_P_Q(Polynome const& poly)
 {
-	return poly.coefficients[DEG_P_N(poly)];
+	return poly.coefficients[poly.coefficients.size() - 1];
 }
 
 //Степень многочлена. return -1 if every coord == 0;
 //P-6 @solodov
 int DEG_P_N(Polynome const& poly)
 {
-	for (int i = poly.coefficients.size() - 1; i >= 0; i--)
-	{
-		if (!NZER_N_B(poly.coefficients[i].num.nPart))
-		{
-			return i;
-		}
-	}
-
-	//если нет ненулевых коэффициентов.
-	return -1;
+	return poly.coefficients.size() - 1;
 }
 
 //Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей

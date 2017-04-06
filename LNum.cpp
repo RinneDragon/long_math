@@ -212,7 +212,7 @@ LNum DIV_NN_Dk(LNum const& a, LNum const& b)
 	LNum k;
 	k.setDigits("0");
 
-	if (NZER_N_B(b) || (COM_NN_D(a, b) == Ordinal::LT))
+	if (!NZER_N_B(b) || (COM_NN_D(a, b) == Ordinal::LT))
 	{
 		return k;
 	}
@@ -241,7 +241,7 @@ LNum DIV_NN_N(LNum const& a, LNum const& b)
 	LNum t;
 	t.setDigits("0");
 
-	if (NZER_N_B(b) || (COM_NN_D(a, b) == Ordinal::LT))
+	if (!NZER_N_B(b) || (COM_NN_D(a, b) == Ordinal::LT))
 	{
 		return t;
 	}
@@ -258,7 +258,7 @@ LNum DIV_NN_N(LNum const& a, LNum const& b)
 LNum MOD_NN_N(LNum const& a, LNum const& b)
 {
 
-	if (NZER_N_B(b))
+	if (!NZER_N_B(b))
 		return { vector<int>({ 0 }) };
 	return SUB_NN_N(a, MUL_NN_N(DIV_NN_N(a, b), b));
 }
@@ -269,12 +269,25 @@ LNum GCF_NN_N(LNum const& a, LNum const& b)
 	LNum t;
 	t.setDigits("0");
 
-	if (NZER_N_B(b))
+	if (!NZER_N_B(b))
 	{
-		return t;
+		return a;
 	}
-	LNum a1 = a, b1 = b, c;
-	while (!NZER_N_B(b1))
+	LNum a1, b1, c;
+	switch (COM_NN_D(a, b))
+	{
+	case Ordinal::LT:
+		a1 = b;
+		b1 = a;
+		break;
+	case Ordinal::GT:
+		a1 = a;
+		b1 = b;
+		break;
+	default:
+		return a;
+	}
+	while (NZER_N_B(b1))
 	{
 		c = b1;
 		b1 = MOD_NN_N(a1, b1);
