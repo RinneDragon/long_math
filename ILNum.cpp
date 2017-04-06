@@ -88,7 +88,7 @@ ILNum SUB_ZZ_Z(ILNum const& a, ILNum const& b)
 {
 	ILNum T = b;
 	T.negative = !T.negative;
-	return ADD_ZZ_Z(a, T);
+	return ADD_ZZ_Z(a, T);	
 }
 //Z-8
 ILNum MUL_ZZ_Z(ILNum const& a, ILNum const& b)
