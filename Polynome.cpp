@@ -45,7 +45,7 @@ istream& operator>>(istream& is, Polynome& pl)
 }
 
 //Суммирование полиномов
-//P-1 @solodov
+//P-1
 Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
 {
 	Polynome sum;
@@ -63,7 +63,7 @@ Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
 }
 
 //Вычитание полиномов
-//P-2 @solodov
+//P-2
 Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
 {
 	Polynome res;
@@ -74,7 +74,7 @@ Polynome SUB_PP_P(Polynome const&pol1, Polynome const&pol2)
 }
 
 //Умножение многочлена на рациональное число
-//P-3 @solodov
+//P-3
 Polynome MUL_PQ_P(Polynome const& poly, RNum const& num)
 {
 	Polynome res;
@@ -84,7 +84,7 @@ Polynome MUL_PQ_P(Polynome const& poly, RNum const& num)
 }
 
 // Умножение полинома на x в степени k
-//P-4 @anon
+//P-4
 Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 {
 	// Why would you?
@@ -114,21 +114,21 @@ Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 }
 
 //Старший коэффициент многочлена
-//P-5 @solodov
+//P-5
 RNum LED_P_Q(Polynome const& poly)
 {
 	return poly.coefficients[poly.coefficients.size() - 1];
 }
 
 //Степень многочлена. return -1 if every coord == 0;
-//P-6 @solodov
+//P-6
 int DEG_P_N(Polynome const& poly)
 {
 	return poly.coefficients.size() - 1;
 }
 
 //Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей
-//P-7 @solodov
+//P-7 
 RNum FAC_P_Q(Polynome const& poly)
 {
 	int count = DEG_P_N(poly);
@@ -161,7 +161,7 @@ RNum FAC_P_Q(Polynome const& poly)
 }
 
 //Умножение многочленов
-//P-8 @solodov
+//P-8 
 Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	Polynome mul, maxpoly = poly1, minpoly = poly2, service;
 
@@ -178,7 +178,7 @@ Polynome MUL_PP_P(Polynome const& poly1, Polynome const& poly2) {
 }
 
 //Частное от деления многочлена на многочлен при делении с остатком
-//P-9 @solodov
+//P-9 
 Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2, Polynome &remainder) {
 	Polynome div, maxpoly = poly1, minpoly = poly2, service;
 
@@ -203,7 +203,7 @@ Polynome DIV_PP_P(Polynome const& poly1, Polynome const& poly2, Polynome &remain
 }
 
 //Остаток от деления многочлена на многочлен при делении с остатком
-//P-10 @solodov
+//P-10 
 Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 {
 	Polynome remainder;
@@ -213,7 +213,7 @@ Polynome MOD_PP_P(Polynome const& poly1, Polynome const& poly2)
 }
 
 //НОД многочленов для рациональных чисел
-//P-11 @solodov
+//P-11 
 Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
 	Polynome divident = poly1, divider = poly2, tempo;
 
@@ -228,7 +228,7 @@ Polynome GCF_PP_P(Polynome const& poly1, Polynome const& poly2) {
 }
 
 //Производная многочлена
-//P-12 @solodov
+//P-12
 Polynome DER_P_P(Polynome const& poly)
 {
 	int degPoly = DEG_P_N(poly);
