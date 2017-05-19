@@ -23,6 +23,12 @@ istream& operator>>(istream& is, RNum& ex)
     ex.den.setDigits(s2);
     return is;
 }
+
+RNum operator+(RNum const& l, RNum const& r) { return ADD_QQ_Q(l, r); }
+RNum operator-(RNum const& l, RNum const& r) { return SUB_QQ_Q(l, r); }
+RNum operator*(RNum const& l, RNum const& r) { return MUL_QQ_Q(l, r); }
+RNum operator/(RNum const& l, RNum const& r) { return DIV_QQ_Q(l, r); }
+
 //Q-1
 RNum RED_Q_Q(RNum const& numb)
 {

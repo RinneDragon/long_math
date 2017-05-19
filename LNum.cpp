@@ -32,15 +32,25 @@ bool operator==(LNum& num, int n){
 bool operator==(int n, LNum& num){
    return operator==(num, n);
 }
-	 
+
+bool operator==(LNum const& l, LNum const& r) {
+    return COM_NN_D(l, r) == Ordinal::EQ;
+}
+
 bool operator!=(LNum& num, int n){
    return !operator==(num, n); 
 }
 	
 bool operator!=(int n, LNum& num){
    return !operator==(num, n); 
-}	 
-	
+}
+
+LNum operator+(LNum const& l, LNum const& r) { return ADD_NN_N(l, r); }
+LNum operator-(LNum const& l, LNum const& r) { return SUB_NN_N(l, r); }
+LNum operator*(LNum const& l, LNum const& r) { return MUL_NN_N(l, r); }
+LNum operator/(LNum const& l, LNum const& r) { return DIV_NN_N(l, r); }
+LNum operator%(LNum const& l, LNum const& r) { return MOD_NN_N(l, r); }
+
 int LNum::len()
 {
 	return digits.size();

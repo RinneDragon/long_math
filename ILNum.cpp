@@ -12,6 +12,12 @@ ostream& operator<<(ostream& os, ILNum& a)
     return os;
 }
 
+ILNum operator+(ILNum const& l, ILNum const& r) { return ADD_ZZ_Z(l, r); }
+ILNum operator-(ILNum const& l, ILNum const& r) { return SUB_ZZ_Z(l, r); }
+ILNum operator*(ILNum const& l, ILNum const& r) { return MUL_ZZ_Z(l, r); }
+ILNum operator/(ILNum const& l, ILNum const& r) { return DIV_ZZ_Z(l, r); }
+ILNum operator%(ILNum const& l, ILNum const& r) { return MOD_ZZ_Z(l, r); }
+
 // Перегрузка оператора ввода
 istream& operator>>(istream& is, ILNum& a)
 {
