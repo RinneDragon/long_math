@@ -7,10 +7,24 @@
 
 struct Polynome {
 	vector<RNum> coefficients;
+    Polynome() = default;
+    Polynome(vector<RNum> const& coefficients)
+        : coefficients(coefficients) {
+    }
+    Polynome(Polynome const& other) = default;
+    Polynome(Polynome&& other) noexcept = default;
+    Polynome& operator=(Polynome const& other) = default;
+    Polynome& operator=(Polynome&& other) noexcept = default;
+    ~Polynome() = default;
 };
 
 ostream& operator<<(ostream& os, Polynome& pl);
-istream& operator >> (istream& is, Polynome& pl);
+istream& operator>> (istream& is, Polynome& pl);
+Polynome operator+ (Polynome const& l, Polynome const& r);
+Polynome operator- (Polynome const& l, Polynome const& r);
+Polynome operator* (Polynome const& l, Polynome const& r);
+Polynome operator/ (Polynome const& l, Polynome const& r);
+Polynome operator% (Polynome const& l, Polynome const& r);
 
 Polynome ADD_PP_P(Polynome const&, Polynome const&);
 Polynome SUB_PP_P(Polynome const&, Polynome const&);

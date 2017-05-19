@@ -44,6 +44,12 @@ istream& operator>>(istream& is, Polynome& pl)
 	return is;
 }
 
+Polynome operator+(Polynome const& l, Polynome const& r) { return ADD_PP_P(l, r); }
+Polynome operator-(Polynome const& l, Polynome const& r) { return SUB_PP_P(l, r); }
+Polynome operator*(Polynome const& l, Polynome const& r) { return MUL_PP_P(l, r); }
+Polynome operator/(Polynome const& l, Polynome const& r) { return DIV_PP_P(l, r); }
+Polynome operator%(Polynome const& l, Polynome const& r) { return MOD_PP_P(l, r); }
+
 //Суммирование полиномов
 //P-1
 Polynome ADD_PP_P(Polynome const&pol1, Polynome const& pol2)
@@ -90,7 +96,7 @@ Polynome MUL_Pxk_P(Polynome const& pol, int const k)
 	// Why would you?
 	if (k == 0) return pol;
 	// Making zero as it is needed in 2 branches
-	LNum Lnzero = { vector<int>({ 1 }) };
+	LNum Lnzero = LNum(vector<int>({ 1 }));
 	ILNum ILzero = { false, vector<int>({ 0 }) };
 	RNum Rzero = { ILzero, Lnzero };
 	// Non-const links are dirty

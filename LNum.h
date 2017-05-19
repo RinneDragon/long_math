@@ -1,9 +1,12 @@
 #pragma once
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <iterator>
+
 #include "Ordinal.h"
+
 using namespace std;
 
 struct LNum {
@@ -13,14 +16,36 @@ struct LNum {
     void setDigits(string str);
     // Значение числа хранится перевёрнутым. (123 хранится как 3 -> [0], 2 -> [1], 1 -> [2])
     vector<int> digits;
+    LNum() = default;
+    LNum(vector<int> vec) : digits(vec) {}
+    explicit LNum(int num) {
+        do {
+            digits.push_back(num % 10);
+            num /= 10;
+        } while (num / 10 != 0);
+    }
+    LNum(LNum const& other) = default;
+    LNum(LNum&& other) noexcept = default;
+    ~LNum() = default;
+    LNum& operator=(LNum const& other) = default;
+    LNum& operator=(LNum&& other) noexcept = default;
 };
 
-ostream& operator<<(ostream&, LNum&);
-istream& operator >> (istream&, LNum&);
+ostream& operator<< (ostream&, LNum&);
+istream& operator>> (istream&, LNum&);
 bool operator==(LNum&, int);
 bool operator==(int, LNum&);
+bool operator==(LNum const&, LNum const&);
 bool operator!=(LNum&, int);
 bool operator!=(int, LNum&);
+inline bool operator!=(LNum const& l, LNum const& r) {
+    return !(l == r);
+};
+LNum operator+(LNum const& l, LNum const& r);
+LNum operator-(LNum const& l, LNum const& r);
+LNum operator*(LNum const& l, LNum const& r);
+LNum operator/(LNum const& l, LNum const& r);
+LNum operator%(LNum const& l, LNum const& r);
 // N-1
 Ordinal COM_NN_D(LNum const&, LNum const&);
 // N-2
