@@ -22,7 +22,7 @@ struct LNum {
         do {
             digits.push_back(num % 10);
             num /= 10;
-        } while (num / 10 != 0);
+        } while (num != 0);
     }
     LNum(LNum const& other) = default;
     LNum(LNum&& other) noexcept = default;
@@ -46,16 +46,22 @@ LNum operator-(LNum const& l, LNum const& r);
 LNum operator*(LNum const& l, LNum const& r);
 LNum operator/(LNum const& l, LNum const& r);
 LNum operator%(LNum const& l, LNum const& r);
+
+
 // N-1
 Ordinal COM_NN_D(LNum const&, LNum const&);
+
+LNum power(LNum const&, LNum const&);
 // N-2
 bool NZER_N_B(LNum const&);
+
+bool isPrimeNum(LNum const&);
 // N-3
 LNum ADD_1N_N(LNum const&);
 // N-4
 LNum ADD_NN_N(LNum const&, LNum const&);
 // N-5
-LNum SUB_NN_N(LNum const&, LNum const&);
+LNum SUB_NN_N(LNum const &, LNum const&);
 // N-6
 LNum MUL_ND_N(LNum const&, int const);
 // N-7
@@ -74,3 +80,7 @@ LNum MOD_NN_N(LNum const&, LNum const&);
 LNum GCF_NN_N(LNum const&, LNum const&);
 // N-14
 LNum LCM_NN_N(LNum const&, LNum const&);
+
+LNum RhoPollard(LNum const&);
+
+vector<LNum> factRhoPollard(LNum const& N);

@@ -1,5 +1,6 @@
 #include "LNum.h"
-
+#include <random>
+#include <ctime>
 // Здесь должны быть объявления функций, описанные в LNum.h для натуральных чисел,
 // Пример такой функции приведён снизу. Подробное описание функций ищите на сайте Позднякова.
 // Примечание: obj.digits - хранит число в перевёрнутом виде.
@@ -46,10 +47,15 @@ bool operator!=(int n, LNum& num){
 }
 
 LNum operator+(LNum const& l, LNum const& r) { return ADD_NN_N(l, r); }
-LNum operator-(LNum const& l, LNum const& r) { return SUB_NN_N(l, r); }
+LNum operator-(LNum const& l, LNum const& r) 
+{
+	if (COM_NN_D(l, r) == Ordinal::LT) return SUB_NN_N(r, l);
+	else return SUB_NN_N(l, r);
+}
 LNum operator*(LNum const& l, LNum const& r) { return MUL_NN_N(l, r); }
 LNum operator/(LNum const& l, LNum const& r) { return DIV_NN_N(l, r); }
 LNum operator%(LNum const& l, LNum const& r) { return MOD_NN_N(l, r); }
+
 
 int LNum::len()
 {
@@ -270,6 +276,7 @@ LNum MOD_NN_N(LNum const& a, LNum const& b)
 
 	if (!NZER_N_B(b))
 		return { vector<int>({ 0 }) };
+	if (COM_NN_D(a, b) == Ordinal::LT) return a;
 	return SUB_NN_N(a, MUL_NN_N(DIV_NN_N(a, b), b));
 }
 
@@ -309,4 +316,108 @@ LNum GCF_NN_N(LNum const& a, LNum const& b)
 LNum LCM_NN_N(LNum const& a, LNum const& b)
 {
     return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
+}
+LNum power(LNum const& a, LNum const& b)
+{
+	auto y = b;
+	auto mul = a;
+	LNum res = LNum(1);
+	while (NZER_N_B(y))
+	{
+		if (y % LNum(2) == 1) res = res*mul;
+		mul = mul * mul;
+		y = y / LNum(2);
+	}
+	return res;
+}
+
+bool isPrimeNum(LNum const& N)
+{
+	srand(time(nullptr));
+	//разложение числа на вид : n-1 = 2^(s)*t, t % 2 = 1
+	if (COM_NN_D(N, LNum(2)) != Ordinal::GT) return true;
+	LNum n = N - LNum(1), s = LNum(0), t;
+	//cout << endl
+		 //<< "Entering first cycle" << endl;
+	while (n % LNum(2) == LNum(0))
+	{
+		n = n / LNum(2);
+		s = s + LNum(1);
+		//cout << "Iteration with n = " << n << "; s = " << s << endl;
+	}
+	t = n;
+	//cout << s << ' ' << t << endl;
+	LNum k = LNum(3), a, x;
+	//cout << "Entering second cycle" << endl;
+	while (k != LNum(0))
+	{
+		a = LNum(rand()) % (N - LNum(3)) + LNum(2);
+		x = power(a, t) % N;
+		k = k - LNum(1);
+		//cout << "Started with a = " << a << "; x = " << x << "; k = " << k << endl;
+		if ((x == LNum(1) || (x == (N - LNum(1))))) continue;
+		x = power(a, t);
+		/*cout << "x changed to " << x << endl
+			 << "Entering inner cycle ";*/
+		for (LNum p = LNum(0);COM_NN_D(p, s) == Ordinal::LT; p = p + LNum(1))
+		{			
+			if ((x % N == 1) || (x % N == (N - LNum(1)))) return true;
+			//cout << "x start = " << x << endl;
+			x = x * x;
+			//cout << "x end = " << x << endl;
+		}
+		return false;
+	}
+	return true;
+}
+
+
+
+LNum RhoPollard(LNum const& N)
+{
+	if (isPrimeNum(N)) return N;
+	srand(time(nullptr));
+	vector<LNum> mas;
+	LNum d;
+	do {
+		LNum x = LNum(rand()) % N;
+		mas.push_back(x);
+
+		bool cycle = false;
+
+		while (!cycle)
+		{
+			x = (x*x + LNum(1)) % N;
+			mas.push_back(x);
+			for (size_t i = 0; i < mas.size() - 1; i++)
+				if (mas.back() == mas.at(i)) cycle = true;
+		}
+		mas.pop_back();
+		for (size_t i = 1; i < mas.size(); i++)
+		{
+			for (size_t j = 0; j < mas.size() - 1; j++)
+			{
+				d = GCF_NN_N(mas.at(i) - mas.at(j), N);
+				if ( (d != LNum(1)) && (d != N) && (isPrimeNum(d))) return d;
+			}
+		}
+		mas.clear();		
+	} while ((d == LNum(1)) || (d == N) || (!isPrimeNum(d)));
+	return d;
+	
+}
+
+vector<LNum> factRhoPollard(LNum const& N)
+{
+	LNum x, n = N;
+	vector<LNum> mas;
+	cout << "factorization: ";
+	do
+	{
+		x = RhoPollard(n);
+		mas.push_back(x);
+		n = n/x;
+	} while (!isPrimeNum(n));
+	mas.push_back(n);
+	return mas;
 }
