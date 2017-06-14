@@ -411,7 +411,6 @@ vector<LNum> factRhoPollard(LNum const& N)
 {
 	LNum x, n = N;
 	vector<LNum> mas;
-	cout << "factorization: ";
 	do
 	{
 		x = RhoPollard(n);
