@@ -55,7 +55,7 @@ LNum operator-(LNum const& l, LNum const& r)
 LNum operator*(LNum const& l, LNum const& r) { return MUL_NN_N(l, r); }
 LNum operator/(LNum const& l, LNum const& r) { return DIV_NN_N(l, r); }
 LNum operator%(LNum const& l, LNum const& r) { return MOD_NN_N(l, r); }
-
+LNum operator++(LNum const& l) { return l + LNum(1); }
 
 int LNum::len()
 {
@@ -317,18 +317,14 @@ LNum LCM_NN_N(LNum const& a, LNum const& b)
 {
     return DIV_NN_N(MUL_NN_N(a, b), GCF_NN_N(a, b));
 }
-LNum power(LNum const& a, LNum const& b)
+LNum modular_pow(LNum base, LNum exponent, LNum modulus)
 {
-	auto y = b;
-	auto mul = a;
-	LNum res = LNum(1);
-	while (NZER_N_B(y))
+	LNum c = LNum(1);
+	for (LNum i = LNum(1); COM_NN_D(i, exponent) != Ordinal::GT; i = i + LNum(1))
 	{
-		if (y % LNum(2) == 1) res = res*mul;
-		mul = mul * mul;
-		y = y / LNum(2);
+		c = (c * base) % modulus;
 	}
-	return res;
+	return c;
 }
 
 bool isPrimeNum(LNum const& N)
@@ -337,34 +333,30 @@ bool isPrimeNum(LNum const& N)
 	//разложение числа на вид : n-1 = 2^(s)*t, t % 2 = 1
 	if (COM_NN_D(N, LNum(2)) != Ordinal::GT) return true;
 	LNum n = N - LNum(1), s = LNum(0), t;
-	//cout << endl
-		 //<< "Entering first cycle" << endl;
+
 	while (n % LNum(2) == LNum(0))
 	{
 		n = n / LNum(2);
 		s = s + LNum(1);
-		//cout << "Iteration with n = " << n << "; s = " << s << endl;
 	}
 	t = n;
-	//cout << s << ' ' << t << endl;
+
 	LNum k = LNum(3), a, x;
-	//cout << "Entering second cycle" << endl;
+
 	while (k != LNum(0))
 	{
 		a = LNum(rand()) % (N - LNum(3)) + LNum(2);
-		x = power(a, t) % N;
+		x = modular_pow(a, t, N);
 		k = k - LNum(1);
-		//cout << "Started with a = " << a << "; x = " << x << "; k = " << k << endl;
-		if ((x == LNum(1) || (x == (N - LNum(1))))) continue;
-		x = power(a, t);
-		/*cout << "x changed to " << x << endl
-			 << "Entering inner cycle ";*/
+
+		if ((x == LNum(1) )) continue;
+		x = modular_pow(a, t, N);
+
 		for (LNum p = LNum(0);COM_NN_D(p, s) == Ordinal::LT; p = p + LNum(1))
 		{			
-			if ((x % N == 1) || (x % N == (N - LNum(1)))) return true;
-			//cout << "x start = " << x << endl;
-			x = x * x;
-			//cout << "x end = " << x << endl;
+			if ( (x == (N - LNum(1)))) return true;
+
+			x = modular_pow(x, LNum(2), N);
 		}
 		return false;
 	}

@@ -46,12 +46,14 @@ LNum operator-(LNum const& l, LNum const& r);
 LNum operator*(LNum const& l, LNum const& r);
 LNum operator/(LNum const& l, LNum const& r);
 LNum operator%(LNum const& l, LNum const& r);
+LNum operator++(LNum const& l);
 
 
 // N-1
 Ordinal COM_NN_D(LNum const&, LNum const&);
 
-LNum power(LNum const&, LNum const&);
+LNum modular_pow(LNum base, LNum exponent, LNum modulus);
+
 // N-2
 bool NZER_N_B(LNum const&);
 
